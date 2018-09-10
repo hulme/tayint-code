@@ -1,0 +1,13 @@
+cd /home/ttp/dhulme/SecDec-3.0.9/loop/tridom1correct/I246/I246_EUC/numerics/together/epstothe0/
+rm SecNumI246.txt
+touch SecNumI246.txt
+#!/bin/bash
+
+shopt -s nullglob
+
+for ext in m; do 
+  files=( *."$ext" )
+  printf 'number of %s files: %d\n' "$ext" "${#files[@]}"
+  echo "${#files[@]}">> SecNumI246.txt
+done
+

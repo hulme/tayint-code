@@ -1,0 +1,269 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8964,        259]
+NotebookOptionsPosition[      8676,        246]
+NotebookOutlinePosition[      9011,        261]
+CellTagsIndexPosition[      8968,        258]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Here", " ", "we", " ", "find", " ", "the", " ", "thresholds"}], 
+   "*)"}], "\n", 
+  RowBox[{
+   RowBox[{"<<", "TayIntfunctions.m"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"ItSecDir", "=", "\"\<D2\>\""}], ";"}], "}"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"name", "=", "N1"}], ";"}], "}"}], "\n", 
+   RowBox[{"(*", 
+    RowBox[{"(*", "invariants", "*)"}], "*)"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{"kineinv", "=", "K1"}], "}"}], "\n", 
+   RowBox[{"(*", 
+    RowBox[{"(*", "masses", "*)"}], "*)"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{"kinemass", "=", "K2"}], "}"}], "\n", 
+   RowBox[{"kinenames", "=", 
+    RowBox[{"Join", "[", 
+     RowBox[{"kineinv", ",", "kinemass"}], "]"}]}], "\n", 
+   RowBox[{"(*", "kinevals", "*)"}], "\n", 
+   RowBox[{"KineScalesVal", "=", "K3"}], "\n", 
+   RowBox[{"KineMassesVal", "=", "K4"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{"Feynlist", "=", "F1"}], "}"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"ThreshList", "[", "i", "]"}], "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Join", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"#", "*", 
+             RowBox[{"KineMassesVal", "[", 
+              RowBox[{"[", "i", "]"}], "]"}]}], "}"}], ",", "KineScalesVal", 
+           ",", "KineMassesVal"}], "]"}], "&"}], "/@", 
+        RowBox[{"Range", "[", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", " ", "10"}], "]"}]}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{"Length", "[", "KineMassesVal", "]"}]}], "}"}]}], "]"}], 
+    "}"}], "\n", 
+   RowBox[{"intlowlist", "=", 
+    RowBox[{"ConstantArray", "[", 
+     RowBox[{"0", ",", 
+      RowBox[{"Length", "[", "FeynList", "]"}]}], "]"}]}], "\n", 
+   RowBox[{"inthighlist", "=", 
+    RowBox[{"ConstantArray", "[", 
+     RowBox[{"1", ",", 
+      RowBox[{"Length", "[", "FeynList", "]"}]}], "]"}]}], "\n", 
+   RowBox[{"SetDirectory", "[", 
+    RowBox[{"ToString", "[", "ItSecDir", "]"}], "]"}], "\n", 
+   RowBox[{"(*", 
+    RowBox[{
+    "the", " ", "names", " ", "of", " ", "the", " ", "scales", " ", "used", 
+     " ", "by", " ", "SecDec"}], "*)"}], "\n", 
+   RowBox[{"SecDecInv", "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"esx", "[", "#", "]"}], "&"}], "/@", 
+     RowBox[{"Range", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{
+        RowBox[{"Length", "[", "kineinv", "]"}], "-", "1"}]}], "]"}]}]}], 
+   "\n", 
+   RowBox[{"SecDecMass", "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"em", "[", "#", "]"}], "&"}], "/@", 
+     RowBox[{"Range", "[", 
+      RowBox[{"0", ",", 
+       RowBox[{
+        RowBox[{"Length", "[", "kinemass", "]"}], "-", "1"}]}], "]"}]}]}], 
+   "\n", 
+   RowBox[{"SecDecList", "=", 
+    RowBox[{"Join", "[", 
+     RowBox[{"SecDecInv", ",", "SecDecMass"}], "]"}]}], "\n", 
+   RowBox[{"SecList", "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"getSectors", "[", 
+        RowBox[{"f", ",", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", "S1"}], "]"}]}], "/.", 
+     RowBox[{"Thread", "[", 
+      RowBox[{"SecDecList", "->", "kinenames"}], "]"}]}]}], "\n", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"PlainTay", "[", 
+       RowBox[{
+        RowBox[{"SecList", "[", 
+         RowBox[{"[", "#", "]"}], "]"}], ",", "FeynList", ",", "FeynList", 
+        ",", "intlowlist", ",", "inthighlist", ",", "0", ",", "0", ",", " ", 
+        RowBox[{
+         RowBox[{"ToString", "[", "name", "]"}], "<>", "\"\<thresh\>\""}], 
+        ",", "#"}], "]"}], "&"}], "/@", 
+     RowBox[{"Range", "[", 
+      RowBox[{"1", ",", " ", 
+       RowBox[{"Length", "[", "SecList", "]"}]}], "]"}]}], "}"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"TayList", "[", "i", "]"}], "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"PlainTayKine", "[", 
+          RowBox[{"FeynList", ",", "kinenames", ",", 
+           RowBox[{
+            RowBox[{"ThreshList", "[", "i", "]"}], "[", 
+            RowBox[{"[", "#", "]"}], "]"}], ",", 
+           RowBox[{
+            RowBox[{"ToString", "[", "name", "]"}], "<>", "\"\<thresh\>\""}], 
+           ",", 
+           RowBox[{
+            RowBox[{"ToString", "[", "name", "]"}], "<>", 
+            "\"\<threshkin\>\""}], ",", "0", ",", "0", ",", "1", ",", 
+           RowBox[{"Length", "[", "SecList", "]"}]}], "]"}], "&"}], "/@", 
+        RowBox[{"Range", "[", 
+         RowBox[{"1", ",", 
+          RowBox[{"Length", "[", "ThreshList", "]"}]}], "]"}]}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{"Length", "[", "KineMassesVal", "]"}]}], "}"}]}], "]"}], 
+    "}"}], "\n", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ThreshPosList", "[", "i", "]"}], "=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"TayList", "[", "i", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{"#", "+", "1"}], "]"}], "]"}], ">", 
+              RowBox[{
+               RowBox[{"TayList", "[", "i", "]"}], "[", 
+               RowBox[{"[", "#", "]"}], "]"}]}], "&&", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"TayList", "[", "i", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{"#", "+", "1"}], "]"}], "]"}], ">", 
+              RowBox[{
+               RowBox[{"TayList", "[", "i", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{"#", "+", " ", "2"}], "]"}], "]"}]}]}], ",", 
+            RowBox[{"Position", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"TayList", "[", "i", "]"}], "[", 
+               RowBox[{"[", "#", "]"}], "]"}], ",", 
+              RowBox[{"TayList", "[", "i", "]"}]}], "]"}]}], "]"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{
+            RowBox[{"Length", "[", 
+             RowBox[{"TayList", "[", "i", "]"}], "]"}], "-", "1"}]}], 
+          "]"}]}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", 
+         RowBox[{"Length", "[", "KineMassesVal", "]"}]}], "}"}]}], "]"}], 
+     "}"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ThreshValList", "[", "i", "]"}], "=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"ThreshList", "[", "i", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"ThreshPosList", "[", "i", "]"}], "[", 
+             RowBox[{"[", "#", "]"}], "]"}], "]"}], "]"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"Length", "[", 
+            RowBox[{"ThreshPosList", "[", "i", "]"}], "]"}]}], "]"}]}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", 
+         RowBox[{"Length", "[", "KineMassesVal", "]"}]}], "}"}]}], "]"}], 
+     "}"}], ";"}], "\n", 
+   RowBox[{"SetDirectory", "[", "\"\<D4\>\"", "]"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"Put", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ThreshValList", "[", "i", "]"}], "[", 
+           RowBox[{"[", "#", "]"}], "]"}], ",", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"ToString", "[", "name", "]"}], "<>", "\"\<Mass\>\"", "<>", 
+            RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<Thresh\>\"", "<>", 
+            RowBox[{"ToString", "[", "#", "]"}], "<>", "\"\<.txt\>\""}], 
+           ")"}]}], "]"}], "&"}], "/@", 
+       RowBox[{"Range", "[", 
+        RowBox[{"1", ",", 
+         RowBox[{"Length", "[", "ThreshValList", "]"}]}], "]"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{"Length", "[", "KineMassesVal", "]"}]}], "}"}]}], "]"}], 
+    "}"}]}]}]], "Code",ExpressionUUID->"613286b4-fb44-4017-8c5e-94517796ae45"]
+},
+WindowSize->{808, 870},
+WindowMargins->{{282, Automatic}, {Automatic, 88}},
+FrontEndVersion->"11.3 for Linux x86 (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 8114, 224, 660, "Code",ExpressionUUID->"613286b4-fb44-4017-8c5e-94517796ae45"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
